@@ -31,7 +31,7 @@ namespace BackendSignToSem.Controllers
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(int id)
+        public async Task<ActionResult<Booking>> GetBookingById(int id)
         {
             var booking = await _context.Bookings.FindAsync(id);
 

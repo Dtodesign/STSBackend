@@ -32,7 +32,7 @@ namespace BackendSignToSem.Controllers
 
         // GET: api/Seminars/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Seminar>> GetSeminar(int id)
+        public async Task<ActionResult<Seminar>> GetSeminarById(int id)
         {
             var seminar = await _context.Seminars.FindAsync(id);
 

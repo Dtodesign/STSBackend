@@ -29,15 +29,15 @@ namespace BackendSignToSem.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Seminar>().HasMany(s => s.Bookings)
-            //      .WithOne(b => b.Seminar).IsRequired();
+            modelBuilder.Entity<Seminar>().HasMany(s => s.Bookings)
+                  .WithOne(b => b.Seminar).IsRequired();
 
 
             //modelBuilder.Entity<Booking>().HasRequired<Seminar>(b => b.Seminar)
             //    .WithMany(s => s.Bookings).HasForeignKey<int>(b => b.Seminar);
 
-            modelBuilder.Entity<Seminar>().HasMany(s => s.Bookings)
-                 .WithOne(b => b.Seminar).HasForeignKey(b => b.SeminarId);
+            //modelBuilder.Entity<Seminar>().HasMany(s => s.Bookings)
+            //     .WithOne(b => b.Seminar).HasForeignKey(b => b.SeminarId);
         }
     }
 }

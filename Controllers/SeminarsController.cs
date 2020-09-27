@@ -27,7 +27,7 @@ namespace BackendSignToSem.Controllers
         {
            
 
-            return await _context.Seminars.ToListAsync();
+            return await _context.Seminars.Include(s => s.Bookings).ToListAsync();
         }
 
         // GET: api/Seminars/5

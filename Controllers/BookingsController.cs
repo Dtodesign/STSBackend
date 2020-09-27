@@ -26,7 +26,7 @@ namespace BackendSignToSem.Controllers
         public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
         {
              
-            return await _context.Bookings.Include(b => b.Seminar).ToArrayAsync();
+            return await _context.Bookings.ToArrayAsync();
         }
 
         // GET: api/Bookings/5

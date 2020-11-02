@@ -15,7 +15,7 @@ namespace BackendSignToSem.Models
         public string Description { get; set; }
 
         // public byte[] Picture { get; set; }
-
-        public ICollection<Booking> Bookings { get; set; }
+        
+        public ICollection<Booking> Bookings { get; set; } 
     }
 }

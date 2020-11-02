@@ -18,5 +18,6 @@ namespace BackendSignToSem.Models
 
         public int SeminarId { get; set; }
         public Seminar Seminar { get; set; }
+        // public ICollection<Seminar> Seminar { get; set; }
     }
 }

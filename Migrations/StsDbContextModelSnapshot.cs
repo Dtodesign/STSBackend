@@ -81,7 +81,7 @@ namespace BackendSignToSem.Migrations
             modelBuilder.Entity("BackendSignToSem.Models.Booking", b =>
                 {
                     b.HasOne("BackendSignToSem.Models.Seminar", "Seminar")
-                        .WithMany("Booking")
+                        .WithMany("Bookings")
                         .HasForeignKey("SeminarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

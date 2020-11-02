@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendSignToSem.Context;
 using BackendSignToSem.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace BackendSignToSem.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("CORSPolicy")]
     [ApiController]
     public class BookingsController : ControllerBase
     {
@@ -26,21 +28,27 @@ namespace BackendSignToSem.Controllers
         public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
         {
              
-            return await _context.Bookings.ToArrayAsync();
+            return await _context.Bookings.Include(b => b.Seminar).ToListAsync();
         }
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBookingById(int id)
         {
-            var booking = await _context.Bookings.Include(b => b.Seminar).FirstOrDefaultAsync(b => b.Id == id);
-
+            var booking = await _context.Bookings.FindAsync(id);
             if (booking == null)
             {
                 return NotFound();
             }
-
             return booking;
+            //var booking = await _context.Bookings.Include(b => b.Seminar).FirstOrDefaultAsync(b => b.Id == id);
+
+            //if (booking == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return booking;
         }
 
         // PUT: api/Bookings/5
@@ -60,6 +68,7 @@ namespace BackendSignToSem.Controllers
             dbBooking.Email = booking.Email;
             dbBooking.Mobile = booking.Mobile;
             dbBooking.Message = booking.Message;
+            dbBooking.SeminarId = booking.SeminarId;
 
             await _context.SaveChangesAsync();
 
@@ -72,10 +81,26 @@ namespace BackendSignToSem.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
+            //_context.Bookings.Add(booking);
+            //await _context.SaveChangesAsync();
 
-            return Ok(booking);
+            //return Ok(_context.Bookings);
+            var seminar = _context.Seminars.Where(s => s.Id == booking.SeminarId).FirstOrDefault();
+            var _booking = new Booking
+            {
+               
+                FirstName = booking.FirstName,
+                LastName = booking.LastName,
+                Email = booking.Email,
+                Message = booking.Message,
+                Mobile = booking.Mobile,
+                Seminar = seminar
+            };
+
+            _context.Bookings.Add(_booking);
+             await _context.SaveChangesAsync();
+
+             return Ok(_booking);
         }
 
         // DELETE: api/Bookings/5

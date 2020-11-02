@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendSignToSem.Context;
 using BackendSignToSem.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace BackendSignToSem.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("CORSPolicy")]
     [ApiController]
     public class SeminarsController : ControllerBase
     {
@@ -22,6 +24,7 @@ namespace BackendSignToSem.Controllers
         }
 
         // GET: api/Seminars
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Seminar>>> GetAllSeminars()
         {
@@ -31,6 +34,7 @@ namespace BackendSignToSem.Controllers
         }
 
         // GET: api/Seminars/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Seminar>> GetSeminarById(int id)
         {
@@ -43,6 +47,20 @@ namespace BackendSignToSem.Controllers
 
             return seminar;
         }
+
+        //[HttpGet("{title}")]
+        //public async Task<ActionResult<Seminar>> GetSeminarByTitle(string title) {
+           
+        //       var seminar = await _context.Seminars.Include(s => s.Title).SingleOrDefaultAsync(s => s.Title == title);
+
+        //     if (seminar == null)
+        //       {
+        //           return NotFound();
+        //       }
+
+        //       return seminar;
+
+        //}
 
         // PUT: api/Seminars/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
